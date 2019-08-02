@@ -17,6 +17,7 @@
         })
         .then(apartmentsJson => {
           this.setState({apartments: apartmentsJson})
+          console.log(this.state.apartments)
         })
       }
 
@@ -27,8 +28,8 @@
           <h1>Testing, testing..</h1>
             <ul>
               { 
-                apartments.map((apartment, i) => {
-                  return <li key={i}>{apartment.address}</li>
+                apartments.map((apartments, i) => {
+                  return <li key={i}>{apartments.address1}</li>
                 })
               }
             </ul>

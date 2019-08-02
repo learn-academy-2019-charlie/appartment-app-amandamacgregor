@@ -12,15 +12,16 @@
 
         return (
           <React.Fragment>
-            <ListApp />
+            
             {logged_in &&
               <div>
+              <ListApp />
                 <a href={sign_out_route}>Sign Out</a>
                 <h1>Welcome to the Apartment App</h1>
-                <ListApp />
               </div>
             }
             {!logged_in &&
+            
               <div>
                 <a href={sign_in_route}>Sign In</a>
               </div>
