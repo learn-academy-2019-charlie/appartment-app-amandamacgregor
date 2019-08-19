@@ -7,7 +7,7 @@ import {
   Switch
 } from 'react-router-dom'
 
-// import Home from './page/Home'
+import Home from './page/Home'
 // import NewApartment from './page/NewApartment'
 
 class MainApp extends React.Component {
@@ -17,7 +17,7 @@ class MainApp extends React.Component {
       apartments: [],
       error: null,
     }
-    // this.getApartments()
+    this.getApartments()
   }
   
   getApartments = () => {
@@ -82,6 +82,7 @@ class MainApp extends React.Component {
           <h2>{error}</h2>
         }
         <Router>
+        <Route exact component={ Home } path="/"/>
           <div className="TopNav">
             <div>
               <Link to="/">Home</Link>
