@@ -1,39 +1,38 @@
 import React from "react"
 import PropTypes from "prop-types"
-
+import {Link} from 'react-router-dom'
 class Home extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            apartments: []
-        }
-        this.getApartments()
-    }
-    
-    getApartments = () => {
-        fetch("/apartments")
-        .then( response => {
-            return response.json()
-    })
-    .then( apartments => {
-      this.setState({apartments})
-    })
+ 
+
+  render () {
+    const {
+      apartments,
+      currentUserId,
+      deleteAction
+    } = this.props
+    return (
+      <React.Fragment>
+        <h1>Apartments</h1>
+        <ul>
+          {apartments.map((apartment) => {
+            return(
+              <li 
+                key={apartment.id}
+              >
+                {apartment.street} {apartment.city}
+                {apartment.user_id === currentUserId &&
+                  <div>
+                    <button onClick={()=> deleteAction(apartment.id)}>delete</button>
+                    <Link to={`/edit-apartment/${apartment.id}`}>Edit</Link>
+                  </div>
+                }
+              </li>
+            )
+          })}
+        </ul>
+      </React.Fragment>
+    );
   }
-    render () {
-        const { apartments } = this.state
-        return (
-            <React.Fragment>
-                <h1>Apartments</h1>
-                <ul>
-                    {apartments.map((apartment) => {
-                        return(
-                            <li key={ apartment.id }>{apartment.street}</li>
-                        )
-                    })}
-                </ul>
-            </React.Fragment>
-        )
-    }
 }
 
 export default Home

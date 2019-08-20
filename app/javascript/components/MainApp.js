@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom'
 
 import Home from './page/Home'
-// import NewApartment from './page/NewApartment'
+import NewApartment from './page/NewApartment'
 
 class MainApp extends React.Component {
   constructor(props){
@@ -81,8 +81,8 @@ class MainApp extends React.Component {
         {error &&
           <h2>{error}</h2>
         }
+        
         <Router>
-        <Route exact component={ Home } path="/"/>
           <div className="TopNav">
             <div>
               <Link to="/">Home</Link>
@@ -99,7 +99,50 @@ class MainApp extends React.Component {
               </div>
             }
           </div>
+          <Route 
+            exact 
+            path="/"
+            render={ (props) => {
+              return(
+                <Home 
+                  {...props} 
+                  currentUserId = {current_user_id}
+                  apartments={apartments} 
+                  deleteAction = {this.deleteApartment}
+                />
+              )
+            }}
+          />
+          
+          {logged_in &&
+            <Switch>
+              <Route 
+                path="/new-apartment" 
+                render={ (props) => {
+                  return(
+                    <NewApartment 
+                      {...props}
+                      onSubmit={this.createApartment}
+                    />
+                  )
+                }}
+              />
+              <Route
+                path="/edit-apartment/:id"
+                render={ (props) => {
+                  return(
+                    <EditApartment
+                      {...props}
+                      onSubmit={this.editApartment}
+                    />
+                  )
+                }}
+              />
+            </Switch>
+          }
+
         </Router>
+      
       </React.Fragment>
     );
   }
